@@ -11,18 +11,18 @@ This little program fetches dates of birth of rappers from Wikipedia, and calcul
 # Results
 
 ```
-Capricorn -> 0.106583074
-Sagittarius -> 0.09404389
-Pisces -> 0.06583072
-Leo -> 0.09717868
-Scorpio -> 0.07210031
 Aries -> 0.09404389
-Virgo -> 0.0815047
 Taurus -> 0.0846395
-Aquarius -> 0.0846395
-Cancer -> 0.05956113
 Gemini -> 0.075235106
+Cancer -> 0.05956113
+Leo -> 0.09717868
+Virgo -> 0.0815047
 Libra -> 0.0846395
+Scorpio -> 0.07210031
+Sagittarius -> 0.09404389
+Capricorn -> 0.106583074
+Aquarius -> 0.0846395
+Pisces -> 0.06583072
 ```
 
 # Conclusion

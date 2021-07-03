@@ -4,7 +4,7 @@ import be.encelade.gemini.ZodiacTranslator.calculateZodiacSign
 import be.encelade.gemini.client.EnglishWikiClient
 import be.encelade.gemini.client.FrenchWikiClient
 import be.encelade.gemini.model.Zodiac
-import org.apache.commons.io.FileUtils
+import org.apache.commons.io.FileUtils.writeStringToFile
 import java.io.File
 
 fun main() {
@@ -35,14 +35,16 @@ fun main() {
 
 
     rows.forEach { row -> println(row) }
+    writeStringToFile(File("rappers.csv"), rows.joinToString(separator = "\n"), "UTF-8")
 
     println()
     println()
+
     val total = zodiacCounter.values.sum().toFloat()
-    zodiacCounter.forEach { (zodiacSign, value) ->
-        println("${zodiacSign.formatted()} -> ${value / total}")
-    }
 
-    FileUtils.writeStringToFile(File("rappers.csv"), rows.joinToString(separator = "\n"), "UTF-8")
+    Zodiac.values().forEach { zodiac ->
+        val frequency = zodiacCounter[zodiac]!! / total
+        println("${zodiac.formatted()} -> $frequency")
+    }
 
 }
