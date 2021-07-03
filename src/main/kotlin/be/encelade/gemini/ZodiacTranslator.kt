@@ -5,7 +5,7 @@ import org.joda.time.LocalDate
 
 object ZodiacTranslator {
 
-    fun findSign(date: LocalDate): Zodiac {
+    fun calculateZodiacSign(date: LocalDate): Zodiac {
         val sameYear = date.withYear(2021)
         val nextYear = date.withYear(2022)
 

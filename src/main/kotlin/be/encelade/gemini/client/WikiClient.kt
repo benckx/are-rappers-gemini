@@ -11,8 +11,10 @@ import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
 
+abstract class WikiClient {
 
-class WikiClient {
+    abstract val lang : String
+    abstract val category : String
 
     private val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
@@ -22,14 +24,14 @@ class WikiClient {
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     fun listFrenchRappers(): List<SearchResultEntry> {
-        val url = "https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:Rappeur_fran%C3%A7ais"
+        val url = "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
         val json = Unirest.get(url).asString().body!!
         return jsonMapper.readValue(json, SearchResult::class.java).query.search
     }
 
     fun findDateOfBirthFrench(title: String): LocalDate? {
         return Jsoup
-                .connect("https://fr.wikipedia.org/wiki/$title")
+                .connect("https://$lang.wikipedia.org/wiki/$title")
                 .get()
                 .getElementsByClass("bday")
                 .filter { it.hasAttr("datetime") }

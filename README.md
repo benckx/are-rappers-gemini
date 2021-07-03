@@ -4,21 +4,6 @@
 
 # About
 
-Template (i.e. cookie cutter project) for my Kotlin / Gradle projects.
+Somebody told me rappers were mostly gemini. Since it was a falsifiable statement, I wanted to proove them wrong.
 
-# How To
-
-## Build
-
-```
-./gradlew clean build
-```
-
-## Update dependencies
-
-```
- ./gradlew dependencyUpdates --refresh-dependencies
-```
-
-## Duplicate
-https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository
+This little program fetches dates of birth of rappers from Wikipedia, to get the data.
