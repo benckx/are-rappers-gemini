@@ -7,9 +7,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.mashape.unirest.http.Unirest
+import org.joda.time.LocalDate
+import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
 
+
 class WikiClient {
+
+    private val formatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
     private val jsonMapper = ObjectMapper()
             .registerModule(KotlinModule())
@@ -22,13 +27,13 @@ class WikiClient {
         return jsonMapper.readValue(json, SearchResult::class.java).query.search
     }
 
-    fun findDateOfBirthFrench(title: String): String? {
+    fun findDateOfBirthFrench(title: String): LocalDate? {
         return Jsoup
                 .connect("https://fr.wikipedia.org/wiki/$title")
                 .get()
                 .getElementsByClass("bday")
                 .filter { it.hasAttr("datetime") }
-                .map { it.attr("datetime") }
+                .map { formatter.parseLocalDate(it.attr("datetime")) }
                 .firstOrNull()
     }
 
