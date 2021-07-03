@@ -18,11 +18,17 @@ def jacksonVersion = "2.10.1"
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    compile "org.slf4j:slf4j-api:1.7.25"
+    compile "ch.qos.logback:logback-classic:1.2.3"
+    compile "ch.qos.logback:logback-core:1.2.3"
+
     compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+
+    compile "org.apache.commons:commons-text:1.9"
+
     compile "com.mashape.unirest:unirest-java:1.4.9"
     compile "org.jsoup:jsoup:1.13.1"
-
-    testCompile 'junit:junit:4.13'
 }
