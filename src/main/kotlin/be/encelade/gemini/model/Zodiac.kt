@@ -1,5 +1,6 @@
 package be.encelade.gemini.model
 
+import org.apache.commons.lang3.StringUtils
 import org.joda.time.LocalDate
 
 enum class Zodiac(val start: LocalDate, val end: LocalDate) {
@@ -15,6 +16,8 @@ enum class Zodiac(val start: LocalDate, val end: LocalDate) {
     SAGITTARIUS(LocalDate(2021, 11, 23), LocalDate(2021, 12, 22)),
     CAPRICORN(LocalDate(2021, 12, 22), LocalDate(2022, 1, 20)),
     AQUARIUS(LocalDate(2021, 1, 20), LocalDate(2021, 2, 19)),
-    PISCES(LocalDate(2021, 2, 19), LocalDate(2021, 3, 21))
+    PISCES(LocalDate(2021, 2, 19), LocalDate(2021, 3, 21));
+
+    fun formatted(): String = StringUtils.capitalize(this.name.lowercase())
 
 }
