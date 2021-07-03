@@ -4,13 +4,15 @@ import be.encelade.gemini.ZodiacTranslator.calculateZodiacSign
 import be.encelade.gemini.client.EnglishWikiClient
 import be.encelade.gemini.client.FrenchWikiClient
 import be.encelade.gemini.model.Zodiac
+import org.apache.commons.io.FileUtils
+import java.io.File
 
 fun main() {
     val clientFr = FrenchWikiClient()
     val clientEn = EnglishWikiClient()
 
     val rows = mutableListOf<String>()
-    val allEntries = mutableMapOf<Zodiac, Int>()
+    val zodiacCounter = mutableMapOf<Zodiac, Int>()
 
     listOf(clientFr, clientEn)
             .forEach { client ->
@@ -22,8 +24,8 @@ fun main() {
                                     val zodiacSign = calculateZodiacSign(dateOfBirth)
                                     rows += listOf(entry.title, dateOfBirth.toString(), zodiacSign.formatted()).joinToString(separator = ";")
 
-                                    allEntries.computeIfAbsent(zodiacSign) { 0 }
-                                    allEntries[zodiacSign] = allEntries[zodiacSign]!! + 1
+                                    zodiacCounter.computeIfAbsent(zodiacSign) { 0 }
+                                    zodiacCounter[zodiacSign] = zodiacCounter[zodiacSign]!! + 1
                                 }
                             } catch (t: Throwable) {
                                 println(t)
@@ -36,9 +38,11 @@ fun main() {
 
     println()
     println()
-    val total = allEntries.values.sum().toFloat()
-    allEntries.forEach { (zodiacSign, value) ->
+    val total = zodiacCounter.values.sum().toFloat()
+    zodiacCounter.forEach { (zodiacSign, value) ->
         println("${zodiacSign.formatted()} -> ${value / total}")
     }
+
+    FileUtils.writeStringToFile(File("rappers.csv"), rows.joinToString(separator = "\n"), "UTF-8")
 
 }
