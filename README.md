@@ -6,7 +6,7 @@
 
 Somebody told me rappers were mostly gemini. Since it was a falsifiable statement, I wanted to proove them wrong.
 
-This little program fetches dates of birth of rappers from Wikipedia, to get the data.
+This little program fetches dates of birth of rappers from Wikipedia, and calculate zodiac sign frequency.
 
 # Results
 
@@ -24,5 +24,7 @@ Cancer -> 0.05956113
 Gemini -> 0.075235106
 Libra -> 0.0846395
 ```
+
+# Conclusion
 
 They're wrong.
