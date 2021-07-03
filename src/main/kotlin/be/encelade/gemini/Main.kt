@@ -8,8 +8,10 @@ fun main() {
     client
             .listFrenchRappers()
             .forEach { entry ->
-                println(entry)
-                println(client.findDateOfBirthFrench(entry.title))
+                println(entry.title)
+                client.findDateOfBirthFrench(entry.title)?.let { dateOfBirth ->
+                    println("$dateOfBirth / ${ZodiacTranslator.findSign(dateOfBirth)}")
+                }
             }
 
 }
