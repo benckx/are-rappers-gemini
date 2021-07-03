@@ -9,14 +9,19 @@ apply plugin: 'maven'
 repositories {
     google()
     mavenCentral()
-    jcenter()
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def jacksonVersion = "2.10.1"
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    compile "com.mashape.unirest:unirest-java:1.4.9"
 
     testCompile 'junit:junit:4.13'
 }
