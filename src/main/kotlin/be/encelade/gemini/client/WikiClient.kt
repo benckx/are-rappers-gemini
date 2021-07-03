@@ -10,6 +10,7 @@ import com.mashape.unirest.http.Unirest
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 abstract class WikiClient(private val firstPageOnly: Boolean = false) {
 
@@ -51,13 +52,36 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
         val url = "https://$lang.wikipedia.org/wiki/$title"
         println("fetching $url")
 
-        return Jsoup
-                .connect(url)
-                .get()
+        val document = Jsoup.connect(url).get()
+        val dateTime1 = localize1(document)
+
+        if (dateTime1 == null) {
+            return localize2(document)
+        } else {
+            return dateTime1
+        }
+    }
+
+    private fun localize1(document: Document): LocalDate? {
+        return document
                 .getElementsByClass("bday")
                 .filter { it.hasAttr("datetime") }
                 .map { formatter.parseLocalDate(it.attr("datetime")) }
                 .firstOrNull()
+    }
+
+    private fun localize2(document: Document): LocalDate? {
+        return document
+                .getElementsByClass("bday")
+                .mapNotNull {
+                    try {
+                        formatter.parseLocalDate(it.text())
+                    } catch (t: Throwable) {
+                        null
+                    }
+                }
+                .firstOrNull()
+
     }
 
 }

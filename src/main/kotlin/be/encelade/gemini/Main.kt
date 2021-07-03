@@ -7,10 +7,10 @@ import org.apache.commons.lang3.StringUtils
 
 fun main() {
     val rows = mutableListOf<String>()
-    val clientFr = FrenchWikiClient(true)
+    val clientFr = FrenchWikiClient(false)
     val clientEn = EnglishWikiClient(false)
 
-    listOf(clientEn)
+    listOf(clientFr, clientEn)
             .forEach { client ->
                 client
                         .listRappers()
@@ -27,6 +27,6 @@ fun main() {
             }
 
 
-    rows.forEach { println(it) }
+    rows.forEach { row -> println(row) }
 
 }
