@@ -9,6 +9,7 @@ apply plugin: 'maven'
 repositories {
     google()
     mavenCentral()
+    mavenLocal()
 }
 
 sourceCompatibility = 1.8
@@ -18,10 +19,6 @@ def jacksonVersion = "2.10.1"
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-
-    compile "org.slf4j:slf4j-api:1.7.25"
-    compile "ch.qos.logback:logback-classic:1.2.3"
-    compile "ch.qos.logback:logback-core:1.2.3"
 
     compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"

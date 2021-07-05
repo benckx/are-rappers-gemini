@@ -1,6 +1,5 @@
-package be.encelade.gemini
+package be.encelade.gemini.services
 
-import be.encelade.gemini.model.Zodiac
 import org.joda.time.LocalDate
 
 object ZodiacTranslator {

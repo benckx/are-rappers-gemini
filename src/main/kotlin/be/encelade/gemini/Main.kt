@@ -1,9 +1,9 @@
 package be.encelade.gemini
 
-import be.encelade.gemini.ZodiacTranslator.calculateZodiacSign
 import be.encelade.gemini.client.EnglishWikiClient
 import be.encelade.gemini.client.FrenchWikiClient
-import be.encelade.gemini.model.Zodiac
+import be.encelade.gemini.services.Zodiac
+import be.encelade.gemini.services.ZodiacTranslator.calculateZodiacSign
 import org.apache.commons.io.FileUtils.writeStringToFile
 import java.io.File
 
@@ -17,7 +17,7 @@ fun main() {
     listOf(clientFr, clientEn)
             .forEach { client ->
                 client
-                        .listRappers()
+                        .searchInCategory()
                         .forEach { entry ->
                             try {
                                 client.findDateOfBirth(entry.title)?.let { dateOfBirth ->
@@ -32,7 +32,6 @@ fun main() {
                             }
                         }
             }
-
 
     rows.forEach { row -> println(row) }
     writeStringToFile(File("rappers.csv"), rows.joinToString(separator = "\n"), "UTF-8")
