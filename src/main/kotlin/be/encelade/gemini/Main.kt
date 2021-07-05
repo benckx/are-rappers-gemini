@@ -40,7 +40,6 @@ fun main() {
     println()
 
     val total = zodiacCounter.values.sum().toFloat()
-
     Zodiac.values().forEach { zodiac ->
         val frequency = zodiacCounter[zodiac]!! / total
         println("${zodiac.formatted()} -> $frequency")

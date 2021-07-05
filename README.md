@@ -27,4 +27,4 @@ Pisces -> 0.06583072
 
 # Conclusion
 
-They're wrong.
+They're wrong. If anything, gemini are underrepresented (< 8.3%).
