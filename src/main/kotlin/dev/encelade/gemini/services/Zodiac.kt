@@ -1,4 +1,4 @@
-package be.encelade.gemini.services
+package dev.encelade.gemini.services
 
 import org.apache.commons.lang3.StringUtils
 import org.joda.time.LocalDate

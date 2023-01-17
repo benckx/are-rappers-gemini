@@ -4,27 +4,32 @@
 
 # About
 
-Somebody told me rappers were mostly gemini. Since it was a falsifiable statement, I wanted to proove them wrong.
+I was arguing with somebody about the legitimacy of astrology. After some back-and-forth, the person stated that since
+"most rappers were Gemini", that would indicate some level of correlation between astrological sign and areas of
+interest.
 
-This little program fetches dates of birth of rappers from Wikipedia, and calculate zodiac sign frequency.
+Since it was a falsifiable statement, this kindled my curiosity, and I took a couple of hours to write a small script
+that would fetch all rappers on Wikipedia along their date of birth. Quite unsurprisingly, one would find no remarkable
+correlation between the musical genre and Gemini.
 
-# Results
+This may all seems a little bit odd and out of place, but I would argue it is important to develop the tools of critical
+thinking and debunk quackery everywhere it's found.
+
+## Results
 
 ```
-Aries -> 0.09404389
-Taurus -> 0.0846395
-Gemini -> 0.075235106
-Cancer -> 0.05956113
-Leo -> 0.09717868
-Virgo -> 0.0815047
-Libra -> 0.0846395
-Scorpio -> 0.07210031
-Sagittarius -> 0.09404389
-Capricorn -> 0.106583074
-Aquarius -> 0.0846395
-Pisces -> 0.06583072
+Aries -> 0.1
+Taurus -> 0.075
+Gemini -> 0.0625
+Cancer -> 0.065625
+Leo -> 0.078125
+Virgo -> 0.090625
+Libra -> 0.0875
+Scorpio -> 0.059375
+Sagittarius -> 0.115625
+Capricorn -> 0.10625
+Aquarius -> 0.090625
+Pisces -> 0.06875
 ```
 
-# Conclusion
-
-They're wrong. If anything, gemini are underrepresented (< 8.3%).
+If anything, Gemini are underrepresented (< 8.3%).

@@ -1,4 +1,4 @@
-package be.encelade.gemini.client
+package dev.encelade.gemini.client
 
 class EnglishWikiClient(firstPageOnly: Boolean = false) : WikiClient(firstPageOnly) {
 

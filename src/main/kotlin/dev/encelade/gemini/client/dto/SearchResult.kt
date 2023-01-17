@@ -1,3 +1,3 @@
-package be.encelade.gemini.client.dto
+package dev.encelade.gemini.client.dto
 
 data class SearchResult(val query: Query)

@@ -1,12 +1,12 @@
-package be.encelade.gemini.client
+package dev.encelade.gemini.client
 
-import be.encelade.gemini.client.dto.SearchResult
-import be.encelade.gemini.client.dto.SearchResultEntry
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.mashape.unirest.http.Unirest
+import dev.encelade.gemini.client.dto.SearchResult
+import dev.encelade.gemini.client.dto.SearchResultEntry
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
@@ -19,13 +19,15 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
 
     private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
-    private val jsonMapper = ObjectMapper()
+    private val jsonMapper =
+        ObjectMapper()
             .registerModule(KotlinModule())
             .registerModule(JodaModule())
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     fun searchInCategory(): List<SearchResultEntry> {
-        val url = "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
+        val url =
+            "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
         val searchResult = fetch(url)
         val result = mutableListOf<SearchResultEntry>()
         result += searchResult.query.search
@@ -39,7 +41,7 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
             }
         }
 
-        return result
+        return result.sortedBy { it.title }
     }
 
     private fun fetch(url: String): SearchResult {
@@ -59,24 +61,23 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
     // works on French Wiki
     private fun localize1(document: Document): LocalDate? {
         return document
-                .getElementsByClass("bday")
-                .filter { it.hasAttr("datetime") }
-                .map { dateFormatter.parseLocalDate(it.attr("datetime")) }
-                .firstOrNull()
+            .getElementsByClass("bday")
+            .filter { it.hasAttr("datetime") }
+            .map { dateFormatter.parseLocalDate(it.attr("datetime")) }
+            .firstOrNull()
     }
 
     // works on English Wiki
     private fun localize2(document: Document): LocalDate? {
         return document
-                .getElementsByClass("bday")
-                .mapNotNull {
-                    try {
-                        dateFormatter.parseLocalDate(it.text())
-                    } catch (t: Throwable) {
-                        null
-                    }
+            .getElementsByClass("bday")
+            .firstNotNullOfOrNull {
+                try {
+                    dateFormatter.parseLocalDate(it.text())
+                } catch (t: Throwable) {
+                    null
                 }
-                .firstOrNull()
+            }
     }
 
 }
