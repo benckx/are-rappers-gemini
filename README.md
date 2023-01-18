@@ -33,3 +33,6 @@ Pisces -> 8.32 %
 ```
 
 As expected, about 1/12th (+/- 8.3%) of rappers are Gemini.
+
+There are indeed more Cancer, Leo and Virgo but there are always more births during these months
+anyway: https://vividmaps.com/most-common-birth-months/
