@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.ben-manes.versions" version "0.39.0"
+    id "com.github.ben-manes.versions" version "0.44.0"
     id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
 }
 
@@ -15,18 +15,18 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def jacksonVersion = "2.10.1"
+def jacksonVersion = "2.14.1"
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
-    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
 
-    compile "org.apache.commons:commons-text:1.9"
-    compile "commons-io:commons-io:2.6"
+    implementation "org.apache.commons:commons-text:1.10.0"
+    implementation "commons-io:commons-io:2.11.0"
 
-    compile "com.mashape.unirest:unirest-java:1.4.9"
-    compile "org.jsoup:jsoup:1.13.1"
+    implementation "com.mashape.unirest:unirest-java:1.4.9"
+    implementation "org.jsoup:jsoup:1.13.1"
 }

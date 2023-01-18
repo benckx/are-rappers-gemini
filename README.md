@@ -31,3 +31,5 @@ Capricorn -> 0.0864
 Aquarius -> 0.0528
 Pisces -> 0.0832
 ```
+
+As expected, about 1/12th (+/- 8.3%) of rappers are Gemini.

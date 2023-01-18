@@ -25,6 +25,7 @@ fun main() {
             try {
                 client.findDateOfBirth(entry.title)?.let { dateOfBirth ->
                     val zodiacSign = calculateZodiacSign(dateOfBirth)
+                    println("${entry.title} -> $dateOfBirth")
                     val columns = listOf(entry.title, dateOfBirth.toString(), zodiacSign.formatted())
                     csvRows += columns.joinToString(separator = ";")
                     zodiacCounter[zodiacSign] = zodiacCounter.getOrDefault(zodiacSign, 0) + 1
@@ -43,7 +44,7 @@ fun main() {
     val total = zodiacCounter.values.sum().toFloat()
     Zodiac.values().forEach { zodiac ->
         val frequency = zodiacCounter[zodiac]!! / total
-        println("${zodiac.formatted()} -> $frequency")
+        println("${zodiac.formatted()} -> ${frequency * 100} %")
     }
 
 }

@@ -51,8 +51,6 @@ class WikiClient(private val lang: String = "en", private val firstPageOnly: Boo
 
     fun findDateOfBirth(title: String): LocalDate? {
         val url = "https://$lang.wikipedia.org/wiki/$title"
-        println("fetching $url")
-
         val document = Jsoup.connect(url).get()
         return localizeEn(document) ?: localizeFr(document)
     }
