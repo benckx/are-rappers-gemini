@@ -12,20 +12,19 @@ import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-abstract class WikiClient(private val firstPageOnly: Boolean = false) {
-
-    abstract val lang: String
-    abstract val category: String
+class WikiClient(private val lang: String = "en", private val firstPageOnly: Boolean = false) {
 
     private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
+    // TODO: use builder
     private val jsonMapper =
         ObjectMapper()
             .registerModule(KotlinModule())
             .registerModule(JodaModule())
             .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-    fun searchInCategory(): List<SearchResultEntry> {
+    fun searchInCategory(category: String): List<SearchResultEntry> {
+        // TODO: build url
         val url =
             "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
         val searchResult = fetch(url)
@@ -55,11 +54,11 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
         println("fetching $url")
 
         val document = Jsoup.connect(url).get()
-        return localize1(document) ?: localize2(document)
+        return localizeEn(document) ?: localizeFr(document)
     }
 
     // works on French Wiki
-    private fun localize1(document: Document): LocalDate? {
+    private fun localizeFr(document: Document): LocalDate? {
         return document
             .getElementsByClass("bday")
             .filter { it.hasAttr("datetime") }
@@ -68,7 +67,7 @@ abstract class WikiClient(private val firstPageOnly: Boolean = false) {
     }
 
     // works on English Wiki
-    private fun localize2(document: Document): LocalDate? {
+    private fun localizeEn(document: Document): LocalDate? {
         return document
             .getElementsByClass("bday")
             .firstNotNullOfOrNull {

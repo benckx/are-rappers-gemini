@@ -9,8 +9,8 @@ I was arguing with somebody about the legitimacy of astrology. After some back-a
 interest.
 
 Since it was a falsifiable statement, this kindled my curiosity, and I took a couple of hours to write a small script
-that would fetch all rappers on Wikipedia along their date of birth. Quite unsurprisingly, one would find no remarkable
-correlation between the musical genre and Gemini.
+that would fetch all rappers from Wikipedia (about 600) along their date of birth. Quite unsurprisingly, one would find
+no remarkable correlation between the musical genre and Gemini.
 
 This may all seems a little bit odd and out of place, but I would argue it is important to develop the tools of critical
 thinking and debunk quackery everywhere it's found.
@@ -18,18 +18,16 @@ thinking and debunk quackery everywhere it's found.
 ## Results
 
 ```
-Aries -> 0.1
-Taurus -> 0.075
-Gemini -> 0.0625
-Cancer -> 0.065625
-Leo -> 0.078125
-Virgo -> 0.090625
-Libra -> 0.0875
-Scorpio -> 0.059375
-Sagittarius -> 0.115625
-Capricorn -> 0.10625
-Aquarius -> 0.090625
-Pisces -> 0.06875
+Aries -> 0.0688
+Taurus -> 0.0832
+Gemini -> 0.0864
+Cancer -> 0.0928
+Leo -> 0.1024
+Virgo -> 0.0896
+Libra -> 0.0848
+Scorpio -> 0.0912
+Sagittarius -> 0.0784
+Capricorn -> 0.0864
+Aquarius -> 0.0528
+Pisces -> 0.0832
 ```
-
-If anything, Gemini are underrepresented (< 8.3%).
