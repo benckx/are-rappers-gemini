@@ -9,6 +9,7 @@ import java.io.File
 
 fun main() {
 
+    // TODO: add more categories: https://en.wikipedia.org/wiki/Category:American_male_rappers (list of tuples <lang, category>)
     val clientFr = FrenchWikiClient()
     val clientEn = EnglishWikiClient()
 
@@ -25,8 +26,7 @@ fun main() {
                             val zodiacSign = calculateZodiacSign(dateOfBirth)
                             val columns = listOf(entry.title, dateOfBirth.toString(), zodiacSign.formatted())
                             rows += columns.joinToString(separator = ";")
-                            zodiacCounter.computeIfAbsent(zodiacSign) { 0 }
-                            zodiacCounter[zodiacSign] = zodiacCounter[zodiacSign]!! + 1
+                            zodiacCounter[zodiacSign] = zodiacCounter.getOrDefault(zodiacSign, 0) + 1
                         }
                     } catch (t: Throwable) {
                         println(t)
