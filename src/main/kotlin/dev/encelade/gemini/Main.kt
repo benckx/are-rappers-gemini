@@ -10,7 +10,7 @@ import java.io.File
 fun main() {
 
     val client = WikiClient()
-    val categories = listOf("French_rappers", "American_male_rappers", "American_women_rappers")
+    val categories = listOf("French_rappers")//, "American_male_rappers", "American_women_rappers")
     val entries = categories
         .flatMap { category -> WikiClient().searchInCategory(category) }
         .distinctBy { entry -> entry.pageid }
@@ -25,7 +25,7 @@ fun main() {
             try {
                 client.findDateOfBirth(entry.title)?.let { dateOfBirth ->
                     val zodiacSign = calculateZodiacSign(dateOfBirth)
-                    println("${entry.title} -> $dateOfBirth")
+                    println("${entry.title} -> $dateOfBirth (${zodiacSign.formatted()})")
                     val columns = listOf(entry.title, dateOfBirth.toString(), zodiacSign.formatted())
                     csvRows += columns.joinToString(separator = ";")
                     zodiacCounter[zodiacSign] = zodiacCounter.getOrDefault(zodiacSign, 0) + 1

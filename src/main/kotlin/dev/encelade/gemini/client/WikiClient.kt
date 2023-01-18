@@ -40,7 +40,7 @@ class WikiClient(private val lang: String = "en", private val firstPageOnly: Boo
             }
         }
 
-        return result.sortedBy { it.title }
+        return result.sortedBy { entry -> entry.title }
     }
 
     private fun fetch(url: String): SearchResult {
@@ -59,6 +59,7 @@ class WikiClient(private val lang: String = "en", private val firstPageOnly: Boo
     private fun localizeFr(document: Document): LocalDate? {
         return document
             .getElementsByClass("bday")
+            .flatMap { it.allElements }
             .filter { it.hasAttr("datetime") }
             .map { dateFormatter.parseLocalDate(it.attr("datetime")) }
             .firstOrNull()

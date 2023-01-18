@@ -4,7 +4,6 @@ plugins {
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'maven'
 
 repositories {
     google()
@@ -20,7 +19,7 @@ def jacksonVersion = "2.14.1"
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
-    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion" // TODO: needs this?
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
 
@@ -28,5 +27,5 @@ dependencies {
     implementation "commons-io:commons-io:2.11.0"
 
     implementation "com.mashape.unirest:unirest-java:1.4.9"
-    implementation "org.jsoup:jsoup:1.13.1"
+    implementation 'org.jsoup:jsoup:1.15.3'
 }
