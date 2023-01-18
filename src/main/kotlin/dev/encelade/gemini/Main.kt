@@ -6,13 +6,12 @@ import dev.encelade.gemini.services.ZodiacCalculator.calculateZodiacSign
 import org.apache.commons.io.FileUtils.writeStringToFile
 import java.io.File
 
-// TODO: separate case csv exists vs. don't exist?
 fun main() {
 
     val client = WikiClient()
-    val categories = listOf("French_rappers")//, "American_male_rappers", "American_women_rappers")
+    val categories = listOf("French_rappers", "American_male_rappers", "American_women_rappers")
     val entries = categories
-        .flatMap { category -> WikiClient().searchInCategory(category) }
+        .flatMap { category -> WikiClient().search(category) }
         .distinctBy { entry -> entry.pageid }
 
     println("found ${entries.size} entries")

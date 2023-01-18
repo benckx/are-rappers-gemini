@@ -1,12 +1,12 @@
 package dev.encelade.gemini.client
 
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.mashape.unirest.http.Unirest
 import dev.encelade.gemini.client.dto.SearchResult
 import dev.encelade.gemini.client.dto.SearchResultEntry
+import kong.unirest.Unirest
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 import org.jsoup.Jsoup
@@ -14,38 +14,45 @@ import org.jsoup.nodes.Document
 
 class WikiClient(private val lang: String = "en", private val firstPageOnly: Boolean = false) {
 
-    private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+    private val jsonMapper = JsonMapper
+        .builder()
+        .addModule(KotlinModule.Builder().build())
+        .addModule(JodaModule())
+        .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .build()
 
-    // TODO: use builder
-    private val jsonMapper =
-        ObjectMapper()
-            .registerModule(KotlinModule())
-            .registerModule(JodaModule())
-            .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
-
-    fun searchInCategory(category: String): List<SearchResultEntry> {
-        // TODO: build url
-        val url =
-            "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
-        val searchResult = fetch(url)
-        val result = mutableListOf<SearchResultEntry>()
-        result += searchResult.query.search
+    fun search(category: String): List<SearchResultEntry> {
+        val firstPage = searchByOffset(category)
+        val totalEntries = firstPage.query.searchinfo.totalhits
+        val entries = mutableListOf<SearchResultEntry>()
+        entries += firstPage.query.search
 
         if (!firstPageOnly) {
             var offset = 10
-            while (offset <= searchResult.query.searchinfo.totalhits) {
-                val nextPageUrl = "$url&sroffset=$offset"
-                result += fetch(nextPageUrl).query.search
+            while (offset <= totalEntries) {
+                entries += searchByOffset(category, offset).query.search
                 offset += 10
             }
         }
 
-        return result.sortedBy { entry -> entry.title }
+        return entries.sortedBy { entry -> entry.title }
     }
 
-    private fun fetch(url: String): SearchResult {
-        println("fetching $url")
-        val json = Unirest.get(url).asString().body!!
+    // "https://$lang.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=+incategory:$category"
+    private fun searchByOffset(category: String, offset: Int? = null): SearchResult {
+        var query = Unirest
+            .get("https://$lang.wikipedia.org/w/api.php")
+            .queryString("action", "query")
+            .queryString("list", "search")
+            .queryString("format", "json")
+            .queryString("srsearch", "incategory:$category")
+
+        if (offset != null) {
+            query = query.queryString("sroffset", offset.toString())
+        }
+
+        val json = query.asString().body!!
+        println("json: $json")
         return jsonMapper.readValue(json, SearchResult::class.java)
     }
 
@@ -55,27 +62,33 @@ class WikiClient(private val lang: String = "en", private val firstPageOnly: Boo
         return localizeEn(document) ?: localizeFr(document)
     }
 
-    // works on French Wiki
-    private fun localizeFr(document: Document): LocalDate? {
-        return document
-            .getElementsByClass("bday")
-            .flatMap { it.allElements }
-            .filter { it.hasAttr("datetime") }
-            .map { dateFormatter.parseLocalDate(it.attr("datetime")) }
-            .firstOrNull()
-    }
+    private companion object {
 
-    // works on English Wiki
-    private fun localizeEn(document: Document): LocalDate? {
-        return document
-            .getElementsByClass("bday")
-            .firstNotNullOfOrNull {
-                try {
-                    dateFormatter.parseLocalDate(it.text())
-                } catch (t: Throwable) {
-                    null
+        private val dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+
+        // works on French Wiki
+        fun localizeFr(document: Document): LocalDate? {
+            return document
+                .getElementsByClass("bday")
+                .flatMap { it.allElements }
+                .filter { it.hasAttr("datetime") }
+                .map { dateFormatter.parseLocalDate(it.attr("datetime")) }
+                .firstOrNull()
+        }
+
+        // works on English Wiki
+         fun localizeEn(document: Document): LocalDate? {
+            return document
+                .getElementsByClass("bday")
+                .firstNotNullOfOrNull {
+                    try {
+                        dateFormatter.parseLocalDate(it.text())
+                    } catch (t: Throwable) {
+                        null
+                    }
                 }
-            }
+        }
+
     }
 
 }

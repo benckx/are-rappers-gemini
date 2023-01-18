@@ -18,18 +18,18 @@ thinking and debunk quackery everywhere it's found.
 ## Results
 
 ```
-Aries -> 0.0688
-Taurus -> 0.0832
-Gemini -> 0.0864
-Cancer -> 0.0928
-Leo -> 0.1024
-Virgo -> 0.0896
-Libra -> 0.0848
-Scorpio -> 0.0912
-Sagittarius -> 0.0784
-Capricorn -> 0.0864
-Aquarius -> 0.0528
-Pisces -> 0.0832
+Aries -> 6.88 %
+Taurus -> 8.32 %
+Gemini -> 8.64 %
+Cancer -> 9.28 %
+Leo -> 10.24 %
+Virgo -> 8.96 %
+Libra -> 8.48 %
+Scorpio -> 9.12 %
+Sagittarius -> 7.84 %
+Capricorn -> 8.64 %
+Aquarius -> 5.28 %
+Pisces -> 8.32 %
 ```
 
 As expected, about 1/12th (+/- 8.3%) of rappers are Gemini.
