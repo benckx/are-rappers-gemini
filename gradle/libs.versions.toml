@@ -1,0 +1,21 @@
+[versions]
+kotlin = "2.4.20"
+benManesVersions = "0.64.0"
+jackson = "2.14.1"
+commonsText = "1.10.0"
+commonsIo = "2.11.0"
+unirest = "3.14.1"
+jsoup = "1.15.3"
+
+[libraries]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+jackson-datatype-joda = { module = "com.fasterxml.jackson.datatype:jackson-datatype-joda", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+commons-text = { module = "org.apache.commons:commons-text", version.ref = "commonsText" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commonsIo" }
+unirest-java = { module = "com.konghq:unirest-java", version.ref = "unirest" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" }
