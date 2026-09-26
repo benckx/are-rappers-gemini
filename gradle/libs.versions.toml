@@ -5,7 +5,7 @@ jackson = "2.22.3"
 commonsText = "1.15.0"
 commonsIo = "2.11.0"
 unirest = "3.14.5"
-jsoup = "1.15.3"
+jsoup = "1.23.2"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
