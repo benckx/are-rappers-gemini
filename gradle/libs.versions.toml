@@ -3,7 +3,7 @@ kotlin = "2.4.20"
 benManesVersions = "0.64.0"
 jackson = "2.22.3"
 commonsText = "1.15.0"
-commonsIo = "2.11.0"
+commonsIo = "2.22.0"
 unirest = "3.14.5"
 jsoup = "1.15.3"
 
